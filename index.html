@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chen Lab - Gene Regulatory Evolution Research at National Dong Hwa University">
+    <meta name="keywords" content="biology, genetics, research, evolutionary biology, gene regulation">
+    <title>Chen Lab - Gene Regulatory Evolution Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a472a;
+            --secondary: #2d6a4f;
+            --accent: #40916c;
+            --light: #d8f3dc;
+            --text: #2b2d42;
+            --gray: #8d99ae;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f5f7fa;
+        }
+
+        /* ==================== HEADER & NAVIGATION ==================== */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* ==================== GENERAL SECTIONS ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        /* ==================== ABOUT SECTION ==================== */
+        #about {
+            background-color: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text p {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--light) 0%, #e8f5e9 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #f0f7f4;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .feature-item strong {
+            color: var(--secondary);
+        }
+
+        /* ==================== RESEARCH SECTION ==================== */
+        #research {
+            background-color: #fafbfc;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .research-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--secondary);
+        }
+
+        .research-card h3 {
+            margin-top: 0;
+        }
+
+        .research-card p {
+            color: #000000;
+            line-height: 1.8;
+            font-size: 1.2rem;
+        }
+
+        /* ==================== TEAM SECTION ==================== */
+        #team {
+            background-color: var(--white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: #f8f9fb;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            background-color: var(--white);
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: 700;
+            border: 4px solid var(--light);
+        }
+
+        .team-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.3rem;
+        }
+
+        .member-role {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .member-bio {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ==================== ALUMNI SECTION ==================== */
+        .alumni-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid #e8eef5;
+        }
+
+        .alumni-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+        }
+
+        .alumni-container {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .alumni-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .alumni-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e8eef5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .alumni-item:hover {
+            background-color: #f8f9fc;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            margin-left: -1rem;
+            margin-right: -1rem;
+            padding-left: 2.5rem;
+        }
+
+        .alumni-item:last-child {
+            border-bottom: none;
+        }
+
+        .alumni-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        .alumni-years {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--light);
+            border-radius: 20px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        /* ==================== PUBLICATIONS SECTION ==================== */
+        #publications {
+            background-color: #fafbfc;
+        }
+
+        .publications-container {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .publication-item {
+            padding: 2rem 0;
+            border-bottom: 1px solid #e8eef5;
+            transition: all 0.3s ease;
+        }
+
+        .publication-item:hover {
+            padding-left: 1.5rem;
+            background-color: #f8f9fc;
+            border-left: 4px solid var(--accent);
+        }
+
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .publication-authors {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .publication-year {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .pub-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .pub-link:hover {
+            background-color: var(--light);
+            color: var(--secondary);
+        }
+
+        /* ==================== NEWS SECTION ==================== */
+        #news {
+            background-color: var(--white);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background: #f8f9fb;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-left-color: var(--secondary);
+        }
+
+        .news-date {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-card h3 {
+            margin-top: 0;
+        }
+
+        .news-card p {
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        #contact {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+        }
+
+        #contact h2 {
+            color: var(--white);
+            font-size: 4.2rem;
+        }
+
+        #contact h2::after {
+            background: linear-gradient(90deg, var(--light), rgba(255, 255, 255, 0.5));
+        }
+
+        .contact-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: 2rem auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            font-size: 1.65rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            font-size: 1.5rem;
+        }
+
+        .contact-info a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            color: var(--white);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background-color: #0f2818;
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 0;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        .footer-badges {
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--primary);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            #contact h2 {
+                font-size: 3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .research-grid,
+            .team-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-wrapper {
+                padding: 2rem 1rem;
+            }
+
+            .navbar {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .alumni-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .alumni-years {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            #contact h2 {
+                font-size: 2.1rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-label {
+                font-size: 1.24rem;
+            }
+
+            .contact-info {
+                font-size: 1.125rem;
+            }
+
+            .contact-info a {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* ==================== SCROLL BEHAVIOR ==================== */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">🧬 Chen Lab</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about">
+        <div class="container">
+            <h2>About Chen Lab</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Using birds as a major model, we ask how cell types and gene regulatory networks evolve to generate tissue diversity. Combining single cell transcriptomics along with epigenomics tools, our research focuses on three major directions:Tissue Homology, Regulatory Innovation, and Tissue aging.</p>
+                </div>
+                <div class="about-image">
+                    🔬
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RESEARCH SECTION ==================== -->
+    <section id="research">
+        <div class="container">
+            <h2>Research</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3>Tissue Homology</h3>
+                    <p>Identifying conserved and divergent cell types across vertebrate skin appendages (e.g., feathers and hair).</p>
+                </div>
+                <div class="research-card">
+                    <h3>Regulatory Innovation</h3>
+                    <p>Uncovering how novel regulatory elements, including alternative isoforms and transposon-derived sequences, contribute to the emergence of new cell states and morphologies.</p>
+                </div>
+                <div class="research-card">
+                    <h3>Tissue Aging</h3>
+                    <p>Characterizing gene regulatory differences in aging between humans and non-model species. Recognizing that mice are limited models for aging studies, we aim to leverage biological diversity to develop new strategies for understanding and potentially mitigating human aging.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TEAM SECTION ==================== -->
+    <section id="team">
+        <div class="container">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="avatar">CK</div>
+                    <h3>Dr. Chih-Kuan Chen</h3>
+                    <div class="member-role">Principal Investigator</div>
+                    <p class="member-bio">Miller Chen grew up in Taichung, Taiwan and received his PhD of Evolutionary biology from the National Taiwan University. He worked as postdoctoral fellow in the Keck Medical School at USC before coming to NDHU in 2026. Outside the lab, Miller loves ball games, reptiles, and weird plants..</p>
+                </div>
+                <div class="team-card">
+                    <div class="avatar">JL</div>
+                    <h3>Dr. Jennifer Lee</h3>
+                    <div class="member-role">Senior Postdoctoral Fellow</div>
+                    <p class="member-bio">Ph.D. in Molecular Biology with expertise in transcriptomic analysis and computational genomics. Published 15+ peer-reviewed articles on gene regulatory networks. Specialist in single-cell genomics.</p>
+                </div>
+                <div class="team-card">
+                    <div class="avatar">MC</div>
+                    <h3>Marcus Chen</h3>
+                    <div class="member-role">Graduate Research Assistant</div>
+                    <p class="member-bio">M.S. candidate in Bioinformatics. Developing bioinformatic pipelines for RNA-seq and ChIP-seq analysis. Experienced in Python, R, and high-performance computing. Research focus on regulatory evolution.</p>
+                </div>
+                <div class="team-card">
+                    <div class="avatar">SR</div>
+                    <h3>Dr. Sarah Rodriguez</h3>
+                    <div class="member-role">Research Scientist</div>
+                    <p class="member-bio">Ph.D. in Genetics with 8+ years of research experience in population genomics. Expertise in statistical genetics and phylogenetic analysis. Co-authored 20+ publications in peer-reviewed journals.</p>
+                </div>
+                <div class="team-card">
+                    <div class="avatar">DK</div>
+                    <h3>Dr. David Kim</h3>
+                    <div class="member-role">Postdoctoral Fellow</div>
+                    <p class="member-bio">Ph.D. in Developmental Biology. Specializes in tissue-specific gene regulation and epigenetics. Skilled in ATAC-seq, Hi-C, and single-cell RNA-seq techniques. Research focus on enhancer evolution.</p>
+                </div>
+                <div class="team-card">
+                    <div class="avatar">AC</div>
+                    <h3>Alex Chen</h3>
+                    <div class="member-role">Lab Technician</div>
+                    <p class="member-bio">B.S. in Biology with expertise in laboratory operations and molecular techniques. Proficient in PCR, cloning, sequencing, and cell culture. Ensures smooth lab operations and maintains equipment.</p>
+                </div>
+            </div>
+
+            <!-- ==================== ALUMNI SECTION ==================== -->
+            <div class="alumni-section">
+                <h3>Alumni</h3>
+                <div class="alumni-container">
+                    <div class="alumni-list">
+                        <div class="alumni-item">
+                            <span class="alumni-name">Dr. Thomas Wright</span>
+                            <span class="alumni-years">2018 - 2022</span>
+                        </div>
+                        <div class="alumni-item">
+                            <span class="alumni-name">Dr. Emily Zhang</span>
+                            <span class="alumni-years">2019 - 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PUBLICATIONS SECTION ==================== -->
+    <section id="publications">
+        <div class="container">
+            <h2>Publications</h2>
+            <div class="publications-container">
+                <div class="publication-item">
+                    <div class="publication-title">Comparative Analysis of Gene Regulatory Networks in Mammalian Heart Development</div>
+                    <div class="publication-authors">Chen CK, Lee J, Rodriguez S, et al.</div>
+                    <div class="publication-year">Nature Genetics, 2024</div>
+                    <a href="#" class="pub-link">View Article →</a>
+                </div>
+                <div class="publication-item">
+                    <div class="publication-title">Evolutionary Conservation and Divergence of Regulatory Elements in Vertebrate Brain Development</div>
+                    <div class="publication-authors">Lee J, Kim D, Chen CK</div>
+                    <div class="publication-year">Molecular Biology and Evolution, 2024</div>
+                    <a href="#" class="pub-link">View Article →</a>
+                </div>
+                <div class="publication-item">
+                    <div class="publication-title">Tissue-Specific Enhancer Evolution in Teleost Fishes</div>
+                    <div class="publication-authors">Rodriguez S, Chen M, Chen CK, Lee J</div>
+                    <div class="publication-year">Genome Biology and Evolution, 2023</div>
+                    <a href="#" class="pub-link">View Article →</a>
+                </div>
+                <div class="publication-item">
+                    <div class="publication-title">Single-Cell Analysis Reveals Regulatory Heterogeneity in Developmental Tissues</div>
+                    <div class="publication-authors">Kim D, Chen M, Lee J, Chen CK</div>
+                    <div class="publication-year">Cell Reports, 2023</div>
+                    <a href="#" class="pub-link">View Article →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== NEWS SECTION ==================== -->
+    <section id="news">
+        <div class="container">
+            <h2>News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-date">August 2024</div>
+                    <h3>New Grant Award</h3>
+                    <p>Dr. Chen's lab has been awarded a 3-year research grant from the National Science Council to investigate gene regulatory evolution in avian species. This funding will support expansion of our genomics infrastructure and research team.</p>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">July 2024</div>
+                    <h3>Publication Success</h3>
+                    <p>Our latest research on tissue-specific regulatory elements has been published in Nature Genetics. This work represents a major breakthrough in understanding how gene regulation evolves across different tissues and species.</p>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">June 2024</div>
+                    <h3>Welcome New Team Members</h3>
+                    <p>The lab welcomes two new graduate students and one postdoctoral fellow. They will be joining our ongoing projects on regulatory innovation and cellular differentiation in developmental systems.</p>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">May 2024</div>
+                    <h3>Conference Presentations</h3>
+                    <p>Lab members presented their research at the International Society of Evolutionary Biology conference. Three oral presentations and two poster presentations showcased our latest findings on gene regulatory networks.</p>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">April 2024</div>
+                    <h3>Collaborative Research Initiative</h3>
+                    <p>We have initiated a new collaborative project with researchers at Academia Sinica on understanding enhancer evolution. This interdisciplinary effort combines computational and experimental approaches.</p>
+                </div>
+                <div class="news-card">
+                    <div class="news-date">March 2024</div>
+                    <h3>Lab Workshop Series</h3>
+                    <p>Launched a new monthly workshop series on bioinformatics and genomic analysis. Workshops cover topics including RNA-seq analysis, ATAC-seq processing, and single-cell transcriptomics methods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-wrapper">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-label">📧 Email</div>
+                        <div class="contact-info">
+                            <a href="mailto:millerchen2026n@gms.ndhu.edu.tw">millerchen2026n@gms.ndhu.edu.tw</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">📍 Address</div>
+                        <div class="contact-info">
+                            National Dong Hwa University<br>
+                            Department of Biochemistry and Molecular Medicine, Room B211<br>
+                            Hualien, Taiwan
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">📞 Phone</div>
+                        <div class="contact-info">
+                            <a href="tel:+886-3-8635825">+886-3-8903647</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <p>&copy; 2026 Chen Lab, National Dong Hwa University. All rights reserved.</p>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== HAMBURGER MENU ==================== 
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ==================== SCROLL ANIMATIONS ==================== 
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.research-card, .team-card, .news-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
